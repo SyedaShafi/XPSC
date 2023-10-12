@@ -3,9 +3,9 @@
 using namespace std;
 const int N = 1e7 + 1;
 
-bool is_palindrome(string s)
+bool is_palindrome(int s[], int n)
 {
-    int i = 0, j = s.size() - 1;
+    int i = 0, j = n - 1;
     bool flag = true;
     while (i < j)
     {
@@ -15,6 +15,20 @@ bool is_palindrome(string s)
             break;
         }
         i++, j--;
+    }
+    return flag;
+}
+
+bool is_equal(int a[], int b[])
+{
+    bool flag = true;
+    for (int i = 0; i < 4; i++)
+    {
+        if (a[i] != b[i])
+        {
+            flag = false;
+            break;
+        }
     }
     return flag;
 }
@@ -29,39 +43,62 @@ int main()
         int x;
         cin >> h;
         cin >> x;
-        int hour = 0, min = 0;
+        int tmp[4] = {-1};
         int cnt = 0;
-        if (is_palindrome(h))
-            cnt++;
+        int a[5];
 
-        string tmp = "";
+        a[0] = (h[0] - '0');
+        a[1] = (h[1] - '0');
+        a[2] = (h[3] - '0');
+        a[3] = (h[4] - '0');
 
-        while (tmp != h)
+        int hrs = 0, min = 0;
+        hrs += (h[0] - '0') * 10;
+        hrs += (h[1] - '0');
+
+        min += (h[3] - '0') * 10;
+        min += (h[4] - '0');
+
+        // for (int i = 0; i < 4; i++)
+        //     cout << tmp[i] << " ";
+        // cout << hrs << " " << min << "\n";
+        // cout << is_equal(tmp, a);
+
+        while (!is_equal(tmp, a))
         {
-            cnt++;
-            tmp = h;
-            hour += (tmp[0] - '0') * 10;
-            hour += (tmp[1] - '0');
-
-            min += (tmp[3] - '0') * 10;
-            min += (tmp[4] - '0');
+            // for (int i = 0; i < 4; i++)
+            //     cout << tmp[i] << " ";
+            if (is_palindrome(tmp, 4))
+                cnt++;
             min += x;
-
-            hour += (min / 60);
+            hrs += (min / 60);
             min = (min % 60);
-            tmp.clear();
-            if (hour >= 24)
-                hour = hour - 24;
-            for (char c : to_string(hour))
+            if (hrs >= 24)
+                hrs -= 24;
+            if (hrs < 10)
             {
-                tmp.push_back(c);
+                tmp[0] = 0;
+                tmp[1] = hrs;
             }
-            tmp.push_back(':');
-            for (char c : to_string(min))
+            else
             {
-                tmp.push_back(c);
+                tmp[0] = hrs / 10;
+                tmp[1] = hrs % 10;
+            }
+
+            if (min < 10)
+            {
+                tmp[2] = 0;
+                tmp[3] = min;
+            }
+            else
+            {
+                tmp[2] = min / 10;
+                tmp[3] = min % 10;
             }
         }
+        if (is_palindrome(a, 4))
+            cnt++;
         cout << cnt << "\n";
     }
 }
