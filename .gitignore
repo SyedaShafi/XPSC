@@ -6,5 +6,6 @@ output.txt
 
 //*.cph
 /*.exe
+/*.bin
 /input.txt
 /output.txt
