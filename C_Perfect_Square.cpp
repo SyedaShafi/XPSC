@@ -19,40 +19,20 @@ int main()
             }
         }
         int ans = 0;
-        int k = n - 1;
         for (int i = 0; i < n / 2; i++)
         {
-            for (int j = 0; j < n; j++)
-            {
-                if (a[i][j] != a[k][j])
-                {
-                    int e1 = a[i][j] - 'a';
-                    int e2 = a[k][j] - 'a';
-                    ans += (abs(e1 - e2));
-                    if (a[i][j] > a[k][j])
-                        a[k][j] = a[i][j];
-                    else
-                        a[i][j] = a[k][j];
-                }
-            }
-            k--;
-        }
-        for (int i = 0; i < n; i++)
-        {
-            k = n - 1;
             for (int j = 0; j < n / 2; j++)
             {
-                if (a[i][j] != a[i][k])
+                vector<int> res;
+                res.push_back(a[i][j] - 'a');
+                res.push_back(a[j][n - 1 - i] - 'a');
+                res.push_back(a[n - 1 - i][n - 1 - j] - 'a');
+                res.push_back(a[n - 1 - j][i] - 'a');
+                sort(res.begin(), res.end());
+                for (int k = 0; k < 3; k++)
                 {
-                    int e1 = a[i][j] - 'a';
-                    int e2 = a[i][k] - 'a';
-                    ans += (abs(e1 - e2));
-                    if (a[i][j] > a[i][k])
-                        a[i][k] = a[i][j];
-                    else
-                        a[i][j] = a[i][k];
+                    ans += (res[3] - res[k]);
                 }
-                k--;
             }
         }
         cout << ans << "\n";
