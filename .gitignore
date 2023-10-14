@@ -1,9 +1,10 @@
-//*.cph
-/.exe
-/.txt
-/.bin
 *.exe
 *.cph
 *.vscode
 input.txt
 output.txt
+
+//*.cph
+/*.exe
+/input.txt
+/output.txt
