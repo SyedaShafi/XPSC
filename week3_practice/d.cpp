@@ -12,7 +12,7 @@ int main()
         cin >> n;
         string s;
         cin >> s;
-        int tmp = 0;
+        ll tmp = 0;
 
         for (int i = 0; i < n; i++)
         {
@@ -21,18 +21,27 @@ int main()
             else
                 tmp += (n - i - 1);
         }
-        cout << tmp << "\n";
-        vector<int> v;
-        for (int i = 0; i < n; i++)
+        // cout << tmp << "\n";
+        vector<ll> v;
+        for (int i = 0; i < n / 2; i++)
         {
-            int res = max(n - i - 1, i);
-            v.push_back(res);
+            if (s[i] == 'L')
+            {
+                v.push_back((n - i - 1) - i);
+            }
         }
-        
-        sort(v.begin(), v.end(), greater<int>());
+        for (int i = n / 2; i < n; i++)
+        {
+            if (s[i] == 'R')
+            {
+                v.push_back(i - (n - i - 1));
+            }
+        }
+        if (v.size() > 0)
+            sort(v.begin(), v.end(), greater<ll>());
         for (int i = 0; i < n; i++)
         {
-            if (v[i] > 0)
+            if (v.size() > i and v[i] > 0)
                 tmp += v[i];
             cout << tmp << " ";
         }
