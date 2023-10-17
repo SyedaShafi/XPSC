@@ -12,29 +12,28 @@ int main()
         cin >> n;
         string tmp[n];
         ll ans = 0;
-        set<string> st;
-        for (int i = 0; i < n; i++)
-        {
-            cin >> tmp[i];
-            st.insert(tmp[i]);
-        }
-
+        map<string, int> frq;
         map<char, int> first_char;
         map<char, int> second_char;
 
-        for (auto ele : st)
+        for (int i = 0; i < n; i++)
         {
-            first_char[ele[0]]++;
-            second_char[ele[1]]++;
+            cin >> tmp[i];
+            frq[tmp[i]]++;
+            first_char[tmp[i][0]]++;
+            second_char[tmp[i][1]]++;
         }
 
         for (int i = 0; i < n; i++)
         {
-            ans += first_char[tmp[i][0]] + second_char[tmp[i][1]] - 2;
+            ans += max(0, first_char[tmp[i][0]] - frq[tmp[i]]);
+            ans += max(0, second_char[tmp[i][1]] - frq[tmp[i]]);
             if (first_char[tmp[i][0]] > 0)
                 first_char[tmp[i][0]]--;
-            if (second_char[tmp[i][0]] > 0)
+            if (second_char[tmp[i][1]] > 0)
                 second_char[tmp[i][1]]--;
+            if (frq[tmp[i]] > 0)
+                frq[tmp[i]]--;
         }
         cout << ans << "\n";
     }
