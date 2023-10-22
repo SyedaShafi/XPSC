@@ -13,35 +13,17 @@ int main()
         cin >> n >> ch;
         string s;
         cin >> s;
-        vector<int> g_index;
-        for (int i = 0; i < n; i++)
+        s += s;
+        int ans = INT_MIN;
+        for (int i = 0; i < s.size(); i++)
         {
-            if (s[i] == 'g')
-                g_index.push_back(i);
-            if (s[i] == ch)
+            if (s[i] == ch and index == -1)
                 index = i;
-        }
-        int sz = g_index.size();
-        int ans = INT_MAX;
-        // for (auto ele : g_index)
-        // {
-        //     cout << ele << " ";
-        // }
-        // cout << " \nindex " << index
-        //      << "\n";
-        if (index < g_index[sz - 1])
-        {
-            for (int i = 0; i < sz; i++)
+            if (s[i] == 'g' and index > -1)
             {
-                if (g_index[i] < index)
-                    continue;
-                ans = g_index[i] - index;
-                break;
+                ans = max(ans, i - index);
+                index = -1;
             }
-        }
-        else
-        {
-            ans = n - index + g_index[0];
         }
         cout << ans << "\n";
     }
