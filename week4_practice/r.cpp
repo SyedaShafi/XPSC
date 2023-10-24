@@ -11,20 +11,21 @@ int main()
         int n;
         cin >> n;
         int a[n];
+        int freq[n + 3] = {0};
         for (int i = 0; i < n; i++)
         {
             cin >> a[i];
         }
-        int ans = 0;
-        int tmp = a[n - 1];
+        int index = -1;
         for (int i = n - 1; i >= 0; i--)
         {
-            if (tmp < a[i])
-                ans++;
-            else
-                tmp = a[i];
+            freq[a[i]]++;
+            if (freq[a[i]] > 1)
+            {
+                index = i;
+                break;
+            }
         }
-
-        cout << ans << "\n";
+        cout << index + 1 << "\n";
     }
 }

@@ -2,24 +2,20 @@
 #define ll long long int
 using namespace std;
 const int N = 2 * 1e5 + 7;
-
-int leaf[N];
-bool vis[N];
-void dfs(int node, vector<int> graph[N])
+void dfs(int node, vector<int> graph[], ll leaf[], int vis[], int parent)
 {
-    leaf[node] = 0;
-    vis[node] = true;
+    vis[node] = 1;
+    if (graph[node].size() == 1 and graph[node][0] == parent)
+    {
+        leaf[node] = 1;
+    }
     for (auto ele : graph[node])
     {
         if (!vis[ele])
         {
-            dfs(ele, graph);
+            dfs(ele, graph, leaf, vis, node);
             leaf[node] += leaf[ele];
         }
-    }
-    if (graph[node].size() == 0)
-    {
-        leaf[node] = 1;
     }
 }
 int main()
@@ -31,15 +27,16 @@ int main()
         int n;
         cin >> n;
         int u, v;
-        vector<int> graph[N];
-        memset(vis, false, sizeof(vis));
-        memset(leaf, 0, sizeof(leaf));
+        vector<int> graph[n + 2];
+
+        ll leaf[n + 2] = {0};
+        int vis[n + 2] = {0};
+
         for (int i = 0; i < n - 1; i++)
         {
             cin >> u >> v;
-            if (u > v)
-                swap(u, v);
             graph[u].push_back(v);
+            graph[v].push_back(u);
         }
         // for (int i = 1; i <= n; i++)
         // {
@@ -50,13 +47,15 @@ int main()
         //     }
         //     cout << "\n";
         // }
-        dfs(1, graph);
+        dfs(1, graph, leaf, vis, -1);
+
         int q;
         cin >> q;
         while (q--)
         {
             int a, b;
             cin >> a >> b;
+            // cout << leaf[a] << " " << leaf[b] << "\n";
             cout << leaf[a] * leaf[b] << "\n";
         }
     }

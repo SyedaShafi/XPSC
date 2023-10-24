@@ -1,4 +1,2 @@
- if (graph[node].size() == 0)
-    {
-        leaf[node] = 1;
-    }
+if (n <= 0)
+                    break;
