@@ -11,31 +11,29 @@ int main()
         int n, k;
         cin >> n >> k;
         ll ans = 1;
-        if (n >= k)
+        ll tmp_k = k;
+        ll tmp_n = n;
+        if (n <= k)
         {
-            ll tmp2 = k;
-            ll tmp = (n - k);
-            while (tmp2 > 0)
+            while (tmp_n--)
             {
-                ans = (ans * tmp2) % N;
-                tmp2--;
-            }
-
-            while (tmp > 0)
-            {
-                ans = (ans * k) % N;
-                tmp--;
+                ans = ((ans % N) * (tmp_k % N)) % N;
+                tmp_k--;
             }
         }
         else
         {
-            ll tmp = n;
-            while (tmp > 0)
+
+            while (tmp_n > 0)
             {
-                ans = (ans * k) % N;
-                tmp--;
+                if (k == 0)
+                    break;
+                ans = ((ans % N) * (k % N)) % N;
+                tmp_n--;
+                k--;
             }
         }
+
         cout << ans << "\n";
     }
 }
