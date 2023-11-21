@@ -13,12 +13,18 @@ int main()
         int fr[n], h[n];
         for (int i = 0; i < n; i++)
             cin >> fr[i];
+
         for (int i = 0; i < n; i++)
             cin >> h[i];
 
         int l = 0, r = 1;
         int mx = 0;
         ll sum = fr[0];
+        for (auto ele : fr)
+        {
+            if (ele <= k)
+                mx = 1;
+        }
 
         while (r < n)
         {
@@ -35,8 +41,6 @@ int main()
             r++;
         }
         mx = max(mx, r - l);
-        if (n == 1 and sum > k)
-            mx = 0;
         cout << mx << "\n";
     }
 }
